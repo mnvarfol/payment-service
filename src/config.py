@@ -14,8 +14,6 @@ class Settings(BaseSettings):
     rabbitmq_default_password: str
     rabbitmq_port: int
 
-    outbox_max_attempts: int
-
     model_config = SettingsConfigDict(
         env_file=".env",
         extra="ignore",
