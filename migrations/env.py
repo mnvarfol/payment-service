@@ -8,6 +8,7 @@ from alembic import context
 from src.config import settings
 from src.models.base import Base  # noqa: F401
 from src.models.payment import Payment  # noqa: F401
+from src.models.outbox import Outbox  # noqa: F401
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
