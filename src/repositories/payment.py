@@ -3,7 +3,7 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.models.payment import Payment
+from src.models.payment import Payment, PaymentStatus
 
 
 class PaymentRepository:
@@ -57,3 +57,16 @@ class PaymentRepository:
         result = await self._session.execute(stmt)
 
         return result.scalar_one_or_none()
+    
+
+    async def update_status(
+        self,
+        payment: Payment,
+        status: PaymentStatus,
+    ) -> Payment:
+
+        payment.status = status
+
+        await self._session.flush()
+
+        return payment
