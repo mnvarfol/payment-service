@@ -1,8 +1,10 @@
-from pydantic import computed_field
+from pydantic import computed_field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
+    api_key: SecretStr
+
     postgres_host: str
     postgres_db: str
     postgres_user: str

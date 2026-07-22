@@ -2,7 +2,7 @@ import asyncio
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 
 from src.broker.rabbit import broker
 from src.publisher.worker import outbox_publisher_loop
@@ -18,6 +18,7 @@ from src.broker.topology import (
     payments_retry_queue_3,
     payments_dlq,
 )
+from src.api.dependencies import verify_api_key
 
 
 logger = logging.getLogger(__name__)
@@ -102,6 +103,9 @@ app = FastAPI(
     title="Payment Service",
     version="1.0.0",
     lifespan=lifespan,
+    dependencies=[
+        Depends(verify_api_key),
+    ],
 )
 
 app.add_exception_handler(
